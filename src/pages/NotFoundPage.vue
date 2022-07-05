@@ -49,10 +49,6 @@
             </li>
           </ul>
         </nav>
-        <div class="copyright pull-right">
-          &copy; 2018, made with
-          <i class="fa fa-heart heart"></i> by Black admin
-        </div>
       </div>
     </footer>
   </div>

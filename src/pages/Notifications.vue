@@ -1,24 +1,26 @@
 <template>
   <div class="row">
-    <div class="col-md-6">
-      <card>
-        <h4 slot="header">Notifications Style</h4>
-        <base-alert type="info">
-          <span>This is a plain notification</span>
-        </base-alert>
-        <base-alert type="info" dismissible>
-          <span>This is a plain notification</span>
-        </base-alert>
-        <base-alert type="info" dismissible with-icon>
-          <span data-notify="icon" class="tim-icons icon-bell-55"></span>
-          <span data-notify="message">This is a notification with close button and icon.</span>
-        </base-alert>
-        <base-alert type="info" dismissible with-icon>
-          <span data-notify="icon" class="tim-icons icon-bell-55"></span>
-          <span data-notify="message">This is a notification with close button and icon and have many lines. You can see that the icon and the close button are always vertically aligned. This is a beautiful notification. So you don't have to worry about the style.</span>
-        </base-alert>
-      </card>
-    </div>
+   <div class="col-lg-6 col-md-12">
+        <card type="tasks" :header-classes="{'text-right': isRTL}">
+          <template slot="header">
+            <h6 class="title d-inline">{{$t('dashboard.tasks', {count: 5})}}</h6>
+            <p class="card-category d-inline">{{$t('dashboard.today')}}</p>
+            <base-dropdown menu-on-right=""
+                           tag="div"
+                           title-classes="btn btn-link btn-icon"
+                           aria-label="Settings menu"
+                           :class="{'float-left': isRTL}">
+              <i slot="title" class="tim-icons icon-settings-gear-63"></i>
+              <a class="dropdown-item" href="#pablo">{{$t('dashboard.dropdown.action')}}</a>
+              <a class="dropdown-item" href="#pablo">{{$t('dashboard.dropdown.anotherAction')}}</a>
+              <a class="dropdown-item" href="#pablo">{{$t('dashboard.dropdown.somethingElse')}}</a>
+            </base-dropdown>
+          </template>
+          <div class="table-full-width table-responsive">
+            <task-list></task-list>
+          </div>
+        </card>
+      </div>
     <div class="col-md-6">
       <card>
         <h4 slot="header">Notifications states</h4>
@@ -88,6 +90,7 @@
 <script>
   import NotificationTemplate from './Notifications/NotificationTemplate';
   import { BaseAlert } from '@/components';
+  
 
   export default {
     components: {

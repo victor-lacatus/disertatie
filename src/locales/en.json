@@ -2,12 +2,12 @@
   "dashboard": {
     "completedTasks": "Completed Tasks",
     "dailySales": "Daily Sales",
-    "performance": "Performance",
+    "performance": "Download",
     "simpleTable": "Simple Table",
-    "totalShipments": "Total Shipments",
+    "totalShipments": "Activitate",
     "chartCategories": [
-      "Accounts",
-      "Purchases",
+      "Activitate",
+      "gfg",
       "Sessions"
     ],
     "tasks": "Tasks({count})",
@@ -113,12 +113,12 @@
   "sidebar": {
     "title": "Creative Tim",
     "shortTitle": "CT",
-    "dashboard": "dashboard",
-    "icons": "Icons",
-    "maps": "Maps",
-    "notifications": "Notifications",
-    "userProfile": "User Profile",
-    "tableList": "Table List",
+    "dashboard": "Dashboard",
+    "icons": "Download",
+    "maps": "Upload",
+    "notifications": "Task-uri",
+    "userProfile": "Profilul tau",
+    "tableList": "Lista Proiecte",
     "typography": "Typography",
     "rtlSupport": "RTL Support"
   }

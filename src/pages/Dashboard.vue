@@ -14,17 +14,6 @@
                 <div class="btn-group btn-group-toggle"
                      :class="isRTL ? 'float-left' : 'float-right'"
                      data-toggle="buttons">
-                  <label v-for="(option, index) in bigLineChartCategories"
-                         :key="option"
-                         class="btn btn-sm btn-primary btn-simple"
-                         :class="{active: bigLineChart.activeIndex === index}"
-                         :id="index">
-                    <input type="radio"
-                           @click="initBigChart(index)"
-                           name="options" autocomplete="off"
-                           :checked="bigLineChart.activeIndex === index">
-                    {{option}}
-                  </label>
                 </div>
               </div>
             </div>
@@ -42,12 +31,11 @@
         </card>
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-4" :class="{'text-right': isRTL}">
+    <div class="chart-area">
         <card type="chart">
           <template slot="header">
             <h5 class="card-category">{{$t('dashboard.totalShipments')}}</h5>
-            <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary "></i> 763,215</h3>
+            <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary "></i> Upload</h3>
           </template>
           <div class="chart-area">
             <line-chart style="height: 100%"
@@ -59,39 +47,6 @@
             </line-chart>
           </div>
         </card>
-      </div>
-      <div class="col-lg-4" :class="{'text-right': isRTL}">
-        <card type="chart">
-          <template slot="header">
-            <h5 class="card-category">{{$t('dashboard.dailySales')}}</h5>
-            <h3 class="card-title"><i class="tim-icons icon-delivery-fast text-info "></i> 3,500€</h3>
-          </template>
-          <div class="chart-area">
-            <bar-chart style="height: 100%"
-                       chart-id="blue-bar-chart"
-                       :chart-data="blueBarChart.chartData"
-                       :gradient-stops="blueBarChart.gradientStops"
-                       :extra-options="blueBarChart.extraOptions">
-            </bar-chart>
-          </div>
-        </card>
-      </div>
-      <div class="col-lg-4" :class="{'text-right': isRTL}">
-        <card type="chart">
-          <template slot="header">
-            <h5 class="card-category">{{$t('dashboard.completedTasks')}}</h5>
-            <h3 class="card-title"><i class="tim-icons icon-send text-success "></i> 12,100K</h3>
-          </template>
-          <div class="chart-area">
-            <line-chart style="height: 100%"
-                        chart-id="green-line-chart"
-                        :chart-data="greenLineChart.chartData"
-                        :gradient-stops="greenLineChart.gradientStops"
-                        :extra-options="greenLineChart.extraOptions">
-            </line-chart>
-          </div>
-        </card>
-      </div>
     </div>
     <div class="row">
       <div class="col-lg-6 col-md-12">
@@ -145,9 +100,9 @@
       return {
         bigLineChart: {
           allData: [
-            [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100],
+            [150, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100],
             [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120],
-            [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130]
+            [60, 80, 65, 1, 80, 105, 20, 130, 70, 115, 60, 130]
           ],
           activeIndex: 0,
           chartData: {
@@ -162,7 +117,7 @@
         purpleLineChart: {
           extraOptions: chartConfigs.purpleChartOptions,
           chartData: {
-            labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+            labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
             datasets: [{
               label: "Data",
               fill: true,
@@ -177,7 +132,7 @@
               pointHoverRadius: 4,
               pointHoverBorderWidth: 15,
               pointRadius: 4,
-              data: [80, 100, 70, 80, 120, 80],
+              data: [80, 100, 70, 80, 120, 80, 30, 45, 90, 65, 75, 42],
             }]
           },
           gradientColors: config.colors.primaryGradient,
