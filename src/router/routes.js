@@ -1,6 +1,8 @@
 import DashboardLayout from "@/layout/dashboard/DashboardLayout.vue";
 // GeneralViews
 import NotFound from "@/pages/NotFoundPage.vue";
+import { authGuard } from '../auth/authGuard';
+
 
 // Admin pages
 const Dashboard = () => import(/* webpackChunkName: "dashboard" */"@/pages/Dashboard.vue");
@@ -25,7 +27,8 @@ const routes = [
       {
         path: "profile",
         name: "profile",
-        component: Profile
+        component: Profile,
+        beforeEnter: authGuard
       },
       {
         path: "notifications",

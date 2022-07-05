@@ -85,7 +85,7 @@
                 </p>
               </a>
               <li class="nav-link">
-                <a href="#" class="nav-item dropdown-item">Profile</a>
+                <router-link class="nav-item dropdown-item" v-if="$auth.isAuthenticated" to="/profile">Profile</router-link>
               </li>
               <li class="nav-link">
                 <a href="#" class="nav-item dropdown-item">Settings</a>
@@ -93,7 +93,7 @@
               <div class="dropdown-divider"></div>
               <li  class="nav-link" v-if="!$auth.loading">
                 <button class="nav-item dropdown-item" v-if="!$auth.isAuthenticated" @click="login">Log in</button>
-                <button  class="nav-item dropdown-item" v-if="$auth.isAuthenticated" @click="logout">Log out</button>
+                <button class="nav-item dropdown-item" v-if="$auth.isAuthenticated" @click="logout">Log out</button>
               </li>
             </base-dropdown>
           </ul>

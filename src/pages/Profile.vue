@@ -21,13 +21,13 @@
       return {
         model: {
           company: 'Creative Code Inc.',
-          email: 'mike@email.com',
-          username: 'michael23',
-          firstName: 'Mike',
-          lastName: 'Andrew',
+          email: this.$auth.user.email,
+          username: this.$auth.user.preffered_username,
+          firstName: this.$auth.user.given_name,
+          lastName: this.$auth.user.family_name,
           address: 'Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09',
           city: 'Melbourne',
-          country: 'Australia',
+          country: '',
           about: 'Lamborghini Mercy, Your chick she so thirsty, I\'m in that two seat Lambo.'
         },
         user: {
