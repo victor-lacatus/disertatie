@@ -17,6 +17,8 @@ import RouterPrefetch from 'vue-router-prefetch'
 import App from "./App";
 // TIP: change to import router from "./router/starterRouter"; to start with a clean layout
 import router from "./router/index";
+import { domain, clientId } from '../auth_config.json';
+import { Auth0Plugin } from './auth';
 
 import BlackDashboard from "./plugins/blackDashboard";
 import i18n from "./i18n"
@@ -24,6 +26,20 @@ import './registerServiceWorker'
 Vue.use(BlackDashboard);
 Vue.use(VueRouter);
 Vue.use(RouterPrefetch);
+
+Vue.use(Auth0Plugin, {
+  domain,
+  clientId,
+  onRedirectCallback: appState => {
+    router.push(
+      appState && appState.targetUrl
+        ? appState.targetUrl
+        : window.location.pathname
+    );
+  }
+});
+
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({

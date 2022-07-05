@@ -91,8 +91,9 @@
                 <a href="#" class="nav-item dropdown-item">Settings</a>
               </li>
               <div class="dropdown-divider"></div>
-              <li class="nav-link">
-                <a href="#" class="nav-item dropdown-item">Log out</a>
+              <li  class="nav-link" v-if="!$auth.loading">
+                <button class="nav-item dropdown-item" v-if="!$auth.isAuthenticated" @click="login">Log in</button>
+                <button  class="nav-item dropdown-item" v-if="$auth.isAuthenticated" @click="logout">Log out</button>
               </li>
             </base-dropdown>
           </ul>
@@ -145,9 +146,19 @@
       },
       toggleMenu() {
         this.showMenu = !this.showMenu;
-      }
+      },
+          login() {
+      this.$auth.loginWithRedirect();
+      },
+    // Log the user out
+      logout() {
+      this.$auth.logout({
+        returnTo: window.location.origin
+      });
+    }
     }
   };
+
 </script>
 <style>
 </style>
