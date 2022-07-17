@@ -1,8 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
+from matplotlib.font_manager import json_load
+from rdflib import Dataset
 from models import DataSet, db, User
 from bson.objectid import ObjectId
-from io import BytesIO
+import json
 
 app = FastAPI()
 app2 = FastAPI()
@@ -37,8 +39,8 @@ async def create_user(user: User):
     
     return {"error":"Another user with same email already exists!"}
 
-@app.put('/datasets')
-async def upload_dataSet(data: DataSet):
+@app.post('/datasets')
+async def create_dataSet(data: DataSet):
     if hasattr(data, 'id'):
         delattr(data, 'id')
     ret = db.datasets.insert_one(data.dict(by_alias=True))
@@ -49,7 +51,10 @@ async def upload_dataSet(data: DataSet):
 async def get_datasets():
     datas = []
     for data in db.datasets.find():
-        datas.append(DataSet(**data))    
+        data = DataSet(**data)
+        data ={'id':str(data.id),
+               'created_by': str(data.created_by)}
+        datas.append(data)    
     return{'data': datas}
 
 
@@ -67,9 +72,8 @@ async def delete_dataset(key, value):
         ret = db.datasets.delete_one({"_id" : ObjectId(id)})
     else:
         ret = db.datasets.delete_one({key : value})
-    ret = { "id" if k == "_id" else k:v for k,v in ret.items() }
-    ret["id"] = str(ret["id"])
-    return ret
+    return {'res': ret.deleted_count,
+            'acknoledgement':ret.raw_result}
 
 @app.get("/dataset/download/{id}")
 def download_fle(id):
@@ -80,6 +84,21 @@ def download_fle(id):
         return {"error": "No such file!"}
     ret["_id"] = str(ret["_id"])
     response = JSONResponse(ret)
-    response.headers["Content-Disposition"] = "attachment; filename=export.json"
+    response.headers["Content-Disposition"] = f"attachment; filename={ret['_id']}.json"
     return response
 
+@app.post("/dataset/upload/")
+async def create_upload_file(userid, file: UploadFile = File()):
+    
+    data = json.load(file.file)
+    
+    tmp={"created_by": userid,
+         "data": data}
+    tmp = DataSet(**tmp)
+    
+    if hasattr(tmp, 'id'):
+        delattr(tmp, 'id')
+        
+    ret = db.datasets.insert_one(tmp.dict(by_alias=True))
+    
+    return {"filename": file.filename}
